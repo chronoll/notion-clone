@@ -5,7 +5,8 @@ export const Heroes = () => {
         <div className="flex flex-col items-center justify-center max-w-5xl">
             <div className="flex items-center">
                 <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:h-[400px] md:w-[400px]">
-                    <Image src="/developer.png" fill className="object-contain" alt="Developer" />
+                    <Image src="/developer.png" fill className="object-contain dark:hidden" alt="Developer"/>
+                    <Image src="/developer-dark.png" fill className="object-contain dark:block hidden" alt="Developer" />
                 </div>
             </div>
         </div>
