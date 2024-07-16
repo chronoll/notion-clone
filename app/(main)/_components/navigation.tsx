@@ -6,10 +6,14 @@ import { usePathname } from 'next/navigation';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { UserItem } from './user-item';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 export const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)'); // medium breakpoint
+  const documents = useQuery(api.documents.get);
+
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<'aside'>>(null);
   const navbarRef = useRef<ElementRef<'div'>>(null);
@@ -87,9 +91,7 @@ export const Navigation = () => {
         <div>
           <UserItem />
         </div>
-        <div className="mt-4">
-          <p>Documents</p>
-        </div>
+        <div className="mt-4">{documents?.map((document) => <p key={document._id}>{document.title}</p>)}</div>
         <div onMouseDown={handleMouseDown} onClick={resetWidth} className="absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-primary/10 opacity-0 transition group-hover/sidebar:opacity-100" />
       </aside>
       <div ref={navbarRef} className={cn('absolute left-60 top-0 z-[99999] w-[calc(100%-240px)]', isResetting && 'transition-all duration-300 ease-in-out', isMobile && 'left-0 w-full')}>
